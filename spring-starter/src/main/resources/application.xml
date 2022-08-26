@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <context:property-placeholder location="classpath:application.properties"/>
+
+    <bean id="pool1" name="alias1, alias2" class="ru.atom.springstarter.dao.repository.UserRepository">
+        <constructor-arg name="batchSize" type="java.lang.Integer" value="${ru.atom.springstarter.batch-size}"/>
+        <constructor-arg name="tableName" type="java.lang.String" value="users"/>
+        <constructor-arg name="args" type="java.util.List">
+            <list>
+                <value>--arg1=value1</value>
+                <value>--arg2=value2</value>
+            </list>
+        </constructor-arg>
+        <constructor-arg name="properties" type="java.util.Map">
+            <map>
+                <entry key="url" value="jdbc:connection/https"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <bean id="pool2" name="alias3" class="ru.atom.springstarter.dao.repository.UserRepository">
+        <constructor-arg index="0" value="1000"/>
+        <constructor-arg index="1" value="users1"/>
+        <constructor-arg index="2">
+            <list>
+                <value>--arg1=value10</value>
+                <value>--arg2=value20</value>
+            </list>
+        </constructor-arg>
+        <constructor-arg index="3">
+            <map>
+                <entry key="url" value="jdbc:connection/https"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <bean class="ru.atom.springstarter.service.UserService" init-method="init" destroy-method="destroyCustom">
+        <constructor-arg name="userRepository" ref="pool1"/>
+    </bean>
+
+    <bean class="ru.atom.springstarter.config.LogBeanFactoryPostProcessor"/>
+    <bean class="ru.atom.springstarter.config.SecondBeanPostProcessor"/>
+</beans>
