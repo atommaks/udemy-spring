@@ -1,4 +1,4 @@
-package ru.atom.springstarterannotation.config.bfpp;
+package ru.atom.springstarterjava.config.bfpp;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
-@Component3
+@Component
 public class SecondBeanPostProcessor implements BeanFactoryPostProcessor, Ordered {
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
