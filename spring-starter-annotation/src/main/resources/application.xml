@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+
+    <!-- Этот контекст добавляем, чтобы работали проперти из указанного файла  -->
+    <context:property-placeholder location="classpath:application.properties"/>
+    <context:component-scan base-package="ru.atom.springstarterannotation"/>
+
+    <bean class="ru.atom.springstarterannotation.dao.repository.UserRepository">
+        <constructor-arg name="batchSize" type="java.lang.Integer" value="${ru.atom.springstarterannotation.batch-size}"/>
+        <constructor-arg name="tableName" type="java.lang.String" value="users"/>
+        <constructor-arg name="args" type="java.util.List">
+            <list>
+                <value>--arg1=value1</value>
+                <value>--arg2=value2</value>
+            </list>
+        </constructor-arg>
+        <constructor-arg name="properties" type="java.util.Map">
+            <map>
+                <entry key="url" value="jdbc:connection/https"/>
+            </map>
+        </constructor-arg>
+    </bean>
+</beans>
